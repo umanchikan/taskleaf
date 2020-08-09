@@ -9,6 +9,7 @@ Task
 | カラム名   | データ型  |
 | ---- | --------------- | 
 | id    |integer | 
+| name  | string |
 | user_id   | integer| 
 | content| string | 
 
