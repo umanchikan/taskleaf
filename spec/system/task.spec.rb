@@ -16,6 +16,16 @@ describe 'タスク管理機能', type: :system do
         # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
       end
     end
+    context 'タスクが作成日時の降順に並んでいる場合' do
+      it '新しいタスクが一番上に表示される' do
+        FactoryBot.create(:task, title: 'task1', content: "sample1", created_at: Time.current + 1.days)
+        FactoryBot.create(:task, title: 'task2', content: "sample2", created_at: Time.current + 2.days)
+        FactoryBot.create(:task, title: 'task3', content: "sample3", created_at: Time.current + 3.days)
+        visit tasks_path
+        task_list = all(".task_row")[0]
+        expect(task_list).to have_content 'task3'
+      end
+    end
   end
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
@@ -23,11 +33,11 @@ describe 'タスク管理機能', type: :system do
         # 1. new_task_pathに遷移する（新規作成ページに遷移する）
         visit new_task_path
         # 2. 新規登録内容を入力する
-        fill_in 'Title', with: '燃えるゴミ'
-        fill_in 'Content', with: '火曜日なり'
+        fill_in 'タイトル', with: '燃えるゴミ'
+        fill_in '詳細', with: '火曜日なり'
         #「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄にタスクのタイトルと内容をそれぞれ入力する
         # 3. 「登録する」というvalue（表記文字）のあるボタンをクリックする
-        click_button 'Create Task'
+        click_button '登録する'
         # 4. clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
         # （タスクが登録されたらタスク詳細画面に遷移されるという前提）
         # ここにタスク詳細ページに、テストコードで作成したデータがタスク詳細画面にhave_contentされているか（含まれているか）を確認（期待）するコードを書く
