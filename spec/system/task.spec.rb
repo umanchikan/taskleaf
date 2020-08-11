@@ -26,6 +26,16 @@ describe 'タスク管理機能', type: :system do
         expect(task_list).to have_content 'task3'
       end
     end
+    context 'タスクが終了期限の降順に並んでいる場合' do
+      it '終了期限の迫ったタスクが一番上に表示される' do
+        FactoryBot.create(:task, title: 'task1', content: "sample1", expired_at: Time.current + 1.days)
+        FactoryBot.create(:task, title: 'task2', content: "sample2", expired_at: Time.current + 2.days)
+        FactoryBot.create(:task, title: 'task3', content: "sample3", expired_at: Time.current + 3.days)
+        visit tasks_path
+        task_list = all(".task_row")[0]
+        expect(task_list).to have_content 'task3'
+      end
+    end
   end
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
