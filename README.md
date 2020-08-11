@@ -27,13 +27,17 @@ Label
 | id    |integer | 
 | name | string | 
 
-###herokuへのデプロイ方法
-#####使用したGemのバージョン
+
+### herokuへのデプロイ方法
+##### 使用したGemのバージョン
+
 - ruby 2.6.5
 - rails 5.2.4
 
-1. `$heroku create`とターミナルへ入力する(アプリが作られる)
+以下の順番でターミナルへ打ち込む
 
-2. `$git push heroku master`とターミナルへ入力する
+`$heroku create`
 
-3.`$heroku run rails db:migrate`とターミナルへ入力する
+`$git push heroku master`
+
+`$heroku run rails db:migrate`
