@@ -18,7 +18,14 @@
     <%= form.label :content %>
     <%= form.text_area :content %>
   </div>
-
+  <div class="field">
+    <%= form.label :expired_at %>
+    <%= form.date_select :expired_at %>
+  </div>
+　<div class="field">
+  <%= form.label :status %>
+  <%= form.select :status, Task.statuses.keys, {prompt: '選択してください'} %>
+</div>
   <div class="actions">
     <%= form.submit %>
   </div>

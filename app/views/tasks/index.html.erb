@@ -1,4 +1,10 @@
 <h1>タスク一覧</h1>
+<%= form_with(model: @tasks, url: tasks_path, method: :get, local: true) do|form| %>
+  <%= form.text_field :title %>
+  <%= form.select :status, {incomplete: "incomplete", underway: "underway", complete: "complete"} %>
+  <%= form.submit 'Search', name: nil %>
+<% end %>
+
 <% @tasks.each do |task| %>
   <p class ="task_row">タイトル <%= task.title %></p>
   <p>内容 <%= task.content %></p>

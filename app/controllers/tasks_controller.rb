@@ -2,6 +2,15 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
+    if params[:task].present?
+      if #blank?
+        @tasks = Task.where(status: params[:status])
+      elsif #もし渡されたパラメータがタイトルのみだったとき
+        @tasks = Task.where("title like ?" ,'%#{params[:title]}%')
+      elsif #もし渡されたパラメータがステータスのみだったとき
+        @tasks = Task.where(status: params[:status])
+      end
+    end
     if params[:sort_expired]
       @tasks = Task.all.order(expired_at: :desc)
     else
@@ -48,7 +57,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content)
+    params.require(:task).permit(:title, :content, :expired_at, :status)
   end
 
 def set_task
