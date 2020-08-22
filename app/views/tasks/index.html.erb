@@ -1,7 +1,10 @@
 <h1>タスク一覧</h1>
 <%= form_with(model: @tasks, url: tasks_path, method: :get, local: true) do|form| %>
+  <%= form.label :title %>
   <%= form.text_field :title %>
+  <div class="status_search">
   <%= form.select :status, Task.statuses.keys, {prompt: '選択してください'} %>
+  </div>
   <%= form.submit 'Search'%>
 <% end %>
 
