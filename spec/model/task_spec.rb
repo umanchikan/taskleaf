@@ -1,7 +1,11 @@
 require 'rails_helper'
 require 'capybara/rspec'
 describe 'タスクモデル機能', type: :model do
-  describe 'バリデーションのテスト' do
+  describe '検索機能' do
+    before do
+      FactoryBot.create(:task, title: "task")
+      FactoryBot.create(:second_task, title: "sample")
+    end
     context 'タスクのタイトルが空の場合' do
       it 'バリデーションにひっかる' do
         task = Task.new(title: '', content: '失敗テスト。タイトルなし')
