@@ -3,22 +3,18 @@ class TasksController < ApplicationController
 
   def index
     if params[:task].present?
-      #if params[:task][:title].present? && params[:task][:status].present?
-      #  @tasks = Task.where("title LIKE ?", '%#{params[:title]}%').where(status: params[:status])
-      #elsif params[:task][:status].empty?
-      # @tasks = Task.all.where("title like?", "%#{params[:task][:title]}%") できた！
-      if params[:task][:title].empty?
-        #@tasks = Task.where(params[status: params[:status]])
-        @tasks = Task.all.where(params[:task][status: params[:status]])
+      if params[:task][:title].present? && params[:task][:status].present?
+        @tasks = Task.search_title(params[:task][:title]).search_status(params[:task][:status])
+      elsif params[:task][:status].empty?
+        @tasks = Task.search_title(params[:task][:title])
+      elsif params[:task][:title].empty?
+        @tasks = Task.search_status(params[:task][:status])
       end
-      #else
-      #@tasks = Task.all.order(created_at: :desc)
-
     else
-      @tasks = Task.where(title: "資源ごみ")
+      @tasks = Task.all
     end
     if params[:sort_expired]
-     @tasks = Task.all.order(expired_at: :desc)
+     @tasks = Task.all.order(expired_at: :asc)
     end
   end
 
