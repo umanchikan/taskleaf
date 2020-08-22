@@ -3,18 +3,22 @@ class TasksController < ApplicationController
 
   def index
     if params[:task].present?
-      if #blank?
-        @tasks = Task.where(status: params[:status])
-      elsif #もし渡されたパラメータがタイトルのみだったとき
-        @tasks = Task.where("title like ?" ,'%#{params[:title]}%')
-      elsif #もし渡されたパラメータがステータスのみだったとき
-        @tasks = Task.where(status: params[:status])
+      #if params[:task][:title].present? && params[:task][:status].present?
+      #  @tasks = Task.where("title LIKE ?", '%#{params[:title]}%').where(status: params[:status])
+      #elsif params[:task][:status].empty?
+      # @tasks = Task.all.where("title like?", "%#{params[:task][:title]}%") できた！
+      if params[:task][:title].empty?
+        #@tasks = Task.where(params[status: params[:status]])
+        @tasks = Task.all.where(params[:task][status: params[:status]])
       end
+      #else
+      #@tasks = Task.all.order(created_at: :desc)
+
+    else
+      @tasks = Task.where(title: "資源ごみ")
     end
     if params[:sort_expired]
-      @tasks = Task.all.order(expired_at: :desc)
-    else
-      @tasks = Task.all.order(created_at: :desc)
+     @tasks = Task.all.order(expired_at: :desc)
     end
   end
 
@@ -60,8 +64,8 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :content, :expired_at, :status)
   end
 
-def set_task
-  @task = Task.find(params[:id])
-end
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
-end
+  end
