@@ -10,3 +10,4 @@ ja:
         updated_at: 更新日時
         expired_at: 終了期限
         status: ステータス
+        priority: 優先度

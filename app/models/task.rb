@@ -2,13 +2,15 @@ class Task < ApplicationRecord
   validates :title,  presence: true
   validates :content,  presence: true
   enum status: {
-      incomplete:1,
-      underway:2,
-      complete:3
+      incomplete: 1,
+      underway: 2,
+      complete: 3
   }
-  #scope :search_title_and_status, -> (){
-  #  where("title LIKE?", "%#{params[:task][:title]}%").where(status: params[:task][:status])
-  #}
+  enum priority: {
+      low: 1,
+      middle: 2,
+      high: 3
+  }
   scope :search_title, -> (title) {
     where("title like?", "%#{title}%")
   }
