@@ -11,7 +11,7 @@ class TasksController < ApplicationController
         @tasks = Task.search_status(params[:task][:status])
       end
     else
-      @tasks = Task.all
+      @tasks = Task.page(params[:page])
     end
     if params[:sort_expired]
      @tasks = Task.all.order(expired_at: :asc)
