@@ -6,6 +6,18 @@
   <strong>Content:</strong>
   <%= @task.content %>
 </p>
+<p>
+  <strong>Limit:</strong>
+  <%= @task.expired_at %>
+</p>
+<p>
+<strong>Status:</strong>
+<%= @task.status %>
+</p>
+<p>
+<strong>Priority:</strong>
+<%= @task.priority %>
+</p>
 
 <%= link_to '編集', edit_task_path(@task) %> |
 <%= link_to '戻る', tasks_path %>
